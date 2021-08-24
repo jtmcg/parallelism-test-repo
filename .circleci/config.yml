@@ -26,3 +26,13 @@ workflows:
   orb-free-workflow:
     jobs:
       - test
+  daily:
+    jobs:
+      - test
+    triggers:
+      - schedule:
+          cron: 0 9 * * *
+          filters:
+            branches:
+              only:
+                - main
