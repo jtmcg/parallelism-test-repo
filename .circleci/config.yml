@@ -4,6 +4,7 @@ jobs:
   test:
     docker:
       - image: cimg/node:15.1
+    parallelism: 2
     steps:
       - checkout
       - restore_cache:
@@ -20,7 +21,10 @@ jobs:
             - ~/.npm
       - run:
           name: Run Tests
-          command: yarn test
+          command: |
+            set -e
+            TEST_PATHS=$(circleci tests glob ./src/**/*.test.ts ./src/**/*.test.tsx | circleci tests split)
+            yarn test $TEST_PATHS
 
 workflows:
   orb-free-workflow:
