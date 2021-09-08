@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: cimg/node:15.1
     parallelism: 2
+    resource_class: small
     steps:
       - checkout
       - restore_cache:
