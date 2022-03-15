@@ -43,8 +43,13 @@ jobs:
             set -e
             TEST_PATHS=$(circleci tests glob ./src/**/*.test.ts ./src/**/*.test.tsx | circleci tests split)
             yarn test $TEST_PATHS
+    
 
 workflows:
   orb-free-workflow:
     jobs:
       - simplest-test-defined-in-jobs
+          filter:
+            branches:
+              ignore:
+                - 'main'
