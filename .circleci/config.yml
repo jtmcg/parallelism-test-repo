@@ -26,6 +26,23 @@ jobs:
             set -e
             TEST_PATHS=$(circleci tests glob ./src/**/*.test.ts ./src/**/*.test.tsx | circleci tests split)
             yarn test $TEST_PATHS
+  
+  simplest-test-defined-in-jobs:
+    docker:
+      - image: cimg/node:15.1 # language dependent (user input)
+    parallelism: 2
+    steps:
+      - checkout
+      - run:
+          name: install deps
+          command: yarn install # language dependent (user input)
+      # glob pattern and test command are language dependent (user input)
+      - run: 
+          name: Run Tests
+          command: | 
+            set -e
+            TEST_PATHS=$(circleci tests glob ./src/**/*.test.ts ./src/**/*.test.tsx | circleci tests split)
+            yarn test $TEST_PATHS
 
 workflows:
   orb-free-workflow:
@@ -54,3 +71,6 @@ workflows:
               set -e
               TEST_PATHS=$(circleci tests glob ./src/**/*.test.ts ./src/**/*.test.tsx | circleci tests split)
               yarn test $TEST_PATHS
+    jobs:
+      - test
+      - simplest-test-defined-in-jobs
