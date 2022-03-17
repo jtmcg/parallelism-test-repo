@@ -49,7 +49,7 @@ workflows:
   orb-free-workflow:
     jobs:
       - simplest-test-defined-in-jobs:
-          filter:
+          filters:
             branches:
               ignore:
                 - 'main'
