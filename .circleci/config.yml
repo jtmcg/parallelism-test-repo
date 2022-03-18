@@ -48,8 +48,8 @@ jobs:
 workflows:
   orb-free-workflow:
     jobs:
-      - simplest-test-defined-in-jobs
-          filter:
+      - simplest-test-defined-in-jobs:
+          filters:
             branches:
               ignore:
                 - 'main'
